@@ -52,6 +52,7 @@ private:
     cpu_t cpu, cpu2;
     unsigned int all, all2;
     QVector<cpu_percent_t> cpus;
+    cpu_percent_t percent;
 };
 
 #endif // MAINWINDOW_H
