@@ -123,18 +123,16 @@ void MainWindow::handleTimeout()
 
     QPainter painter(&pix);
 
-    cout << QDateTime::currentDateTime().toString("[yyyy-MM-dd hh:mm:ss.zzz]").toUtf8().data() << " handleTimeout()" << endl;
-    int i, k;
-    for(i=0;i<9;i++) {
+    for(int i=0;i<9;i++) {
         QPainterPath path;
-        k = MAX_COUNT - cpus.count() +1;
-        printf("names(%s):", names[i]);
+        int k = MAX_COUNT - cpus.count() +1;
+
         bool isFirst = true;
         QPointF sp;
         foreach(cpu_percent_t p, cpus) {
             double d = ((double*)(&p))[i];
-            printf(" %5.2f", d);
             QPointF ep(k*5, height() - d/100.0 * (double) height());
+
             if(ep.y()>=height()) ep.setY(height()-1);
             if(isFirst) {
                 isFirst = false;
@@ -149,7 +147,6 @@ void MainWindow::handleTimeout()
             sp = ep;
             k++;
         }
-        printf("\n");
 
         // 设置画笔颜色
         painter.setPen(QPen(QBrush(colors[i]), 2));
@@ -157,8 +154,6 @@ void MainWindow::handleTimeout()
     }
 
     update();
-
-    cout.flush();
 }
 
 void MainWindow::paintEvent(QPaintEvent *event)
